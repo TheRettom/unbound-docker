@@ -1,0 +1,34 @@
+[Container]
+ContainerName=unbound-server
+Image=docker.io/madnuttah/unbound:latest
+Label=io.containers.autoupdate=registry
+Network=dns.network
+AddHost=pihole:172.17.0.5
+IP=172.17.0.10
+Pod=unbound.pod
+Volume=%h/.config/containers/storage/unbound/log.d/unbound.log:/usr/local/unbound/log.d/unbound.log:rw
+Volume=%h/.config/containers/storage/unbound/unbound.conf:/opt/unbound/etc/unbound/unbound.conf:ro
+Volume=%h/.config/containers/storage/unbound/conf.d:/usr/local/unbound/conf.d
+Volume=%h/.config/containers/storage/unbound/unbound.conf:/usr/local/unbound/unbound.conf
+Volume=%h/.config/containers/storage/unbound/certs.d:/usr/local/unbound/certs.d
+Volume=%h/.config/containers/storage/unbound/zones.d/:/usr/local/unbound/zones.d/:rw
+Volume=%h/.config/containers/storage/unbound/root.hints:/usr/local/unbound/root.hints:rw
+Environment=TZ=America/Boise
+Environment=HEALTHCHECK_PORT=5335
+Environment=UNBOUND_UID=1000
+Environment=UNBOUND_GID=1000
+#Environment=DISABLE_SET_PERMS=true # without defining user: _unbound or --user _unbound will run the container under the root account (which, of course, mi
+ght be desired).
+
+HealthCmd=["/usr/local/unbound/sbin/healthcheck.sh", "unbound-healthcheck"]
+HealthStartPeriod=15s
+HealthInterval=60s
+HealthTimeout=30s
+HealthRetries=5
+Notify=healthy
+
+[Install]
+WantedBy=default.target
+
+[Service]
+Restart=always
