@@ -1,0 +1,6 @@
+[Container]
+Image=busybox
+ContainerName=unbound-redis-socket
+Pod=unbound.pod
+RunInit=true
+Exec= /bin/sh -c "chown -R 999:1000 /usr/local/unbound/cachedb.d/ && /bin/sh"
