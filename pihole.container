@@ -1,6 +1,6 @@
 [Container]
 ContainerName=pihole
-Environment=DNSMASQ_LISTENING=all TZ=America/Boise WEBTHEME=default-dark VIRTUAL_HOST=pihole.famdam.top
+Environment=DNSMASQ_LISTENING=all TZ=Country/City WEBTHEME=default-dark VIRTUAL_HOST=example.com
 Secret=pihole-pass
 Image=pihole/pihole:latest
 PublishPort=53:53/tcp
