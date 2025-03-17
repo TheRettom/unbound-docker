@@ -2,9 +2,9 @@
 ContainerName=unbound-server
 Image=docker.io/madnuttah/unbound:latest
 Label=io.containers.autoupdate=registry
-Network=dns.network
-AddHost=pihole:172.17.0.5
-IP=172.17.0.10
+Network=dns.network       # for connection with Pihole
+AddHost=pihole:172.17.0.5 # for Pihole container
+IP=172.17.0.10            # for Unbound to have a static IP for Pihole's upstream DNS configuration.
 Pod=unbound.pod
 Volume=%h/.config/containers/storage/unbound/log.d/unbound.log:/usr/local/unbound/log.d/unbound.log:rw
 Volume=%h/.config/containers/storage/unbound/unbound.conf:/opt/unbound/etc/unbound/unbound.conf:ro
