@@ -1,0 +1,16 @@
+[Unit]
+Description=Unbound Recursive Caching Resolver
+After=network-pre.target
+
+[Container]
+ContainerName=unbound-test
+HostName=unbound-test
+Image=docker.io/madnuttah/unbound:latest
+Network=dns.network
+Environment=TZ=America/Boise
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=multi-user.target default.target
