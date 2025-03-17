@@ -1,0 +1,18 @@
+[Container]
+ContainerName=pihole
+Environment=DNSMASQ_LISTENING=all TZ=America/Boise WEBTHEME=default-dark VIRTUAL_HOST=pihole.famdam.top
+Secret=pihole-pass
+Image=pihole/pihole:latest
+PublishPort=53:53/tcp
+PublishPort=53:53/udp
+Network=dns.network
+AddHost=unbound:172.17.0.10
+IP=172.17.0.5   # for Unbound to recognize Pihole's hostname
+Volume=%h/.config/containers/storage/pihole/etc-pihole:/etc/pihole
+Volume=%h/.config/containers/storage/pihole/etc-dnsmasq.d:/etc/dnsmasq.d
+
+[Install]
+WantedBy=default.target
+
+[Service]
+Restart=always
